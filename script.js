@@ -21,34 +21,34 @@ import confetti from 'canvas-confetti';
 
 const DEFAULT_CONFIG = {
   theme: "theme-pink",
-  isEditMode: false, // Default to FALSE so his girlfriend sees zero edit UI!
+  isEditMode: false, // Default to FALSE so girlfriend sees zero edit UI!
 
   // Hero Section
   heroGreeting: "Happy",
   heroHighlight: "Birthday",
   heroName: "my love",
-  heroSubtitleLine1: "I didn't know what to get you this year ~",
-  heroSubtitleLine2: "so I built you this whole website 💕",
-  pillTag: "★ for you, only ★",
-  birthdayDateText: "apr · 30 · 2026",
-  priorityTag: "priority: you",
+  heroSubtitleLine1: "I LOVE YOU SOOO SOOO SOOO MUCH",
+  heroSubtitleLine2: "to the most pretty girl 💕",
+  pillTag: "My world",
+  birthdayDateText: "My 11:11 wish",
+  priorityTag: "My everything",
   scrollPromptText: "scroll for sweetness",
 
   // Section 1: Dossier
   dossierBadge: "· no. 1 — about you ·",
-  dossierHeading: "a tiny dossier on ",
+  dossierHeading: "MY WORLD ",
   girlfriendFirstName: "you",
   dossierSubheading: "strictly classified, eyes only 🔒",
   daysCardLabel: "days i've loved you ~",
-  manualDaysCount: "365",
-  anniversaryDate: "2025-04-30",
+  manualDaysCount: "241",
+  anniversaryDate: null,
   daysFooterNote: "and falling harder every single day",
-  titleCardLabel: "official title",
-  officialTitle: "cutest sleeper 💤",
-  treatCardLabel: "favorite treat",
-  favoriteTreat: "iced matcha latte 🍵",
-  snackCardLabel: "snack thief status",
-  snackThiefStatus: "guilty as charged 🍪",
+  titleCardLabel: "",
+  officialTitle: "Cutieee",
+  treatCardLabel: "",
+  favoriteTreat: "",
+  snackCardLabel: "",
+  snackThiefStatus: "hehe",
   dossierQuote: '"the world is a lot less heavy with you in it ~"',
 
   // Section 2: Scrapbook Polaroids
@@ -58,35 +58,51 @@ const DEFAULT_CONFIG = {
   polaroids: [
     {
       id: "pol-1",
-      img: "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=700&q=80",
-      caption: "our very first date ☕",
-      date: "jan 14",
+      img: "images/polaroid-1.jpg",
+      caption: "",
+      date: "",
       tape: "tape-pattern-stripe",
       rot: "-3deg"
     },
     {
       id: "pol-2",
-      img: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=700&q=80",
-      caption: "the sunset walk where we talked for hours 🌅",
-      date: "mar 22",
+      img: "images/polaroid-2.jpg",
+      caption: "",
+      date: "",
       tape: "tape-pattern-dots",
       rot: "3.5deg"
     },
     {
       id: "pol-3",
-      img: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=700&q=80",
-      caption: "caught you laughing at my terrible jokes 😂",
-      date: "jun 09",
+      img: "images/polaroid-3.jpg",
+      caption: "",
+      date: "",
       tape: "tape-pattern-pink",
       rot: "-2.5deg"
     },
     {
       id: "pol-4",
-      img: "https://images.unsplash.com/photo-1494774157365-9e04c6720e47?auto=format&fit=crop&w=700&q=80",
-      caption: "you being effortlessly gorgeous 💕",
-      date: "oct 17",
+      img: "images/polaroid-4.jpg",
+      caption: "",
+      date: "",
       tape: "tape-pattern-mint",
       rot: "2.8deg"
+    },
+    {
+      id: "pol-5",
+      img: "images/polaroid-5.jpg",
+      caption: "",
+      date: "",
+      tape: "tape-pattern-stripe",
+      rot: "-1.8deg"
+    },
+    {
+      id: "pol-6",
+      img: "images/polaroid-6.jpg",
+      caption: "",
+      date: "",
+      tape: "tape-pattern-dots",
+      rot: "2.2deg"
     }
   ],
 
@@ -96,21 +112,21 @@ const DEFAULT_CONFIG = {
   cakeSubheading: "click each candle or blow to make a secret wish ✨",
   wishTitle: "WISH RECEIVED! 🎂",
   wishMessage: "Whatever you just wished for, I promise I will spend every single day of this year making it come true for you. Happy birthday my absolute favorite person in the galaxy!",
-  wishSignature: "~ forever in your corner 💕",
+  wishSignature: "~ forever yours ambudiii",
 
   // Section 4: Corkboard Sticky Notes
   wishesBadge: "· no. 4 — wishes for you ·",
   wishesHeading: "tiny wishes for you",
   wishesSubheading: "pinned with all my heart 📌",
   stickyNotes: [
-    { id: "note-1", color: "sticky-pink", pin: "pin-red", rot: "-2.5deg", text: "may every coffee you drink taste like pure joy ☕" },
+    { id: "note-1", color: "sticky-pink", pin: "pin-red", rot: "-2.5deg", text: "may every tea you drink taste like pure joy ☕" },
     { id: "note-2", color: "sticky-yellow", pin: "pin-yellow", rot: "3deg", text: "zero bad hair days this entire year! ✨" },
-    { id: "note-3", color: "sticky-mint", pin: "pin-blue", rot: "-1.5deg", text: "safe travels wherever your sweet feet take you ✈️" },
-    { id: "note-4", color: "sticky-purple", pin: "pin-green", rot: "2deg", text: "endless cuddles & warm fluffy blankets 🛌" },
-    { id: "note-5", color: "sticky-peach", pin: "pin-red", rot: "-3deg", text: "may all your big wild dreams come true 🌟" },
-    { id: "note-6", color: "sticky-cream", pin: "pin-yellow", rot: "1.8deg", text: "never run out of snacks when you get hungry 🍪" },
-    { id: "note-7", color: "sticky-lavender", pin: "pin-pink", rot: "-2deg", text: "laughter so hard that your stomach aches 😂" },
-    { id: "note-8", color: "sticky-mint", pin: "pin-blue", rot: "2.5deg", text: "me holding your hand through all of it 🤝💖" }
+    { id: "note-3", color: "sticky-purple", pin: "pin-green", rot: "2deg", text: "endless cuddles & warm fluffy blankets 🛌" },
+    { id: "note-4", color: "sticky-peach", pin: "pin-red", rot: "-3deg", text: "may all your big wild dreams come true 🌟" },
+    { id: "note-5", color: "sticky-cream", pin: "pin-yellow", rot: "1.8deg", text: "never run out of snacks when you get hungry 🍪" },
+    { id: "note-6", color: "sticky-lavender", pin: "pin-pink", rot: "-2deg", text: "laughter so hard that your stomach aches 😂" },
+    { id: "note-7", color: "sticky-mint", pin: "pin-blue", rot: "2.5deg", text: "me holding your hand through all of it 🤝💖" },
+    { id: "note-8", color: "sticky-lavender", pin: "pin-pink", rot: "-1.5deg", text: "Be happy always✨" }
   ],
 
   // Section 5: Letter
@@ -119,18 +135,18 @@ const DEFAULT_CONFIG = {
   letterSubheading: "dear darling, some thoughts written just for you 💌",
   letterStampText: "AIR MAIL",
   letterStampEmoji: "💌",
-  letterTo: "to: you 🌸",
+  letterTo: "to: Anaghuu 🌸",
   letterDate: "today & forever",
-  letterP1: "i knew i wanted to do a couple things when i told you this:",
-  letterP2: "thank you for being the safest space of every ordinary day with you (for the silly mornings!)",
-  letterBullet1: "i love how soft you'll be anytime",
-  letterBullet2: "i love that you look out for me at nothing",
-  letterBullet3: "i love that you don't keep count of who gets what treat 🥐",
-  letterP3: "i don't know how to thank you a real smile... i can't know a home till that grin.",
-  letterP4: "and all of me ~ promises to keep always finding the little ways to make you laugh and feel cherished like this again.",
+  letterP1: "Happy birthday chakkareeeee",
+  letterP2: "thank you for being the the most amazing person you have been to meee.",
+  letterBullet1: "i love youu",
+  letterBullet2: "i love that you look out for me",
+  letterBullet3: "i love that you kore koree koreeeeeeee  :)",
+  letterP3: "",
+  letterP4: "All of me ~ promises to keep always finding the little ways to make you laugh and feel cherished like this again.",
   letterP5: "Happy birthday, my person.",
   letterSignOff: "always yours, 💕",
-  letterAuthorName: "the one who loves you most",
+  letterAuthorName: "yours ambudiiiiiiii",
 
   // Footer
   footerHeart: "💖",
@@ -140,10 +156,10 @@ const DEFAULT_CONFIG = {
 
   // Photos for fixed slots
   photos: {
-    bentoPhotoImg: "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=800&q=80",
-    bentoMiniPhotoImg: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=600&q=80",
-    bentoMiniPhotoImg2: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=600&q=80",
-    mascotTileImg: "https://api.iconify.design/fluent-emoji:bear.svg"
+    bentoPhotoImg: "images/bento-main.jpg",
+    bentoMiniPhotoImg: "images/bento-mini-1.jpg",
+    bentoMiniPhotoImg2: "images/bento-mini-2.jpg",
+    mascotTileImg: "https://www.dreamstime.com/little-cute-teddy-bear-little-cute-bear-colorful-funny-teddy-bear-image271247946"
   },
 
   // Mascot custom message
