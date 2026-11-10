@@ -21,7 +21,7 @@ import confetti from 'canvas-confetti';
 
 const DEFAULT_CONFIG = {
   theme: "theme-pink",
-  isEditMode: true, // Default to true on first open so user sees everything is editable!
+  isEditMode: false, // Default to FALSE so his girlfriend sees zero edit UI!
 
   // Hero Section
   heroGreeting: "Happy",
@@ -1023,6 +1023,18 @@ function showToast(message) {
 // =========================================================
 
 document.addEventListener("DOMContentLoaded", () => {
+  // Check if owner/edit mode is requested via URL (?edit=true or ?edit=1)
+  const urlParams = new URLSearchParams(window.location.search);
+  const requestedEdit = urlParams.get("edit") === "true" || urlParams.get("edit") === "1" || urlParams.get("admin") === "1";
+
+  if (requestedEdit) {
+    document.body.classList.add("owner-mode-active");
+    siteConfig.isEditMode = true;
+  } else {
+    document.body.classList.remove("owner-mode-active");
+    siteConfig.isEditMode = false;
+  }
+
   renderAll();
   setupInlineEditing();
   initPolaroidActions();
@@ -1032,6 +1044,37 @@ document.addEventListener("DOMContentLoaded", () => {
   initInteractiveCake();
   initMascot();
   initExportModal();
+
+  // Keyboard shortcut for owner: Ctrl+Shift+E toggles edit controls
+  document.addEventListener("keydown", (e) => {
+    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "e") {
+      e.preventDefault();
+      const isNowOwner = document.body.classList.toggle("owner-mode-active");
+      setEditModeState(isNowOwner);
+      playPopSound();
+      showToast(isNowOwner ? "🔓 Owner Edit Mode Unlocked!" : "🔒 Preview Mode Locked (Girlfriend View)");
+    }
+  });
+
+  // Mascot triple-click secret unlock
+  let mascotClicks = 0;
+  let mascotClickTimer = null;
+  const mascotCard = document.getElementById("mascotCard");
+  if (mascotCard) {
+    mascotCard.addEventListener("click", () => {
+      mascotClicks++;
+      clearTimeout(mascotClickTimer);
+      if (mascotClicks >= 3) {
+        mascotClicks = 0;
+        const isNowOwner = document.body.classList.toggle("owner-mode-active");
+        setEditModeState(isNowOwner);
+        playCelebrationFanfare();
+        showToast(isNowOwner ? "✨ Secret Editor Unlocked! ✏️" : "💖 Girlfriend Mode Active");
+      } else {
+        mascotClickTimer = setTimeout(() => { mascotClicks = 0; }, 1000);
+      }
+    });
+  }
 
   // Celebrate Button in Dock
   const dockCelebrateBtn = document.getElementById("dockCelebrateBtn");
@@ -1057,7 +1100,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Sweet Welcome Toast
   setTimeout(() => {
-    showToast("✏️ Edit Mode is ON! Click any text to type or any photo to change it!");
-  }, 1000);
+    if (siteConfig.isEditMode) {
+      showToast("✏️ Edit Mode is ON! Click any text to type or photo to change!");
+    } else {
+      showToast("Happy Birthday my love! 💖 Scroll down for sweetness ✨");
+    }
+  }, 1200);
 });

@@ -228,6 +228,19 @@ body.edit-mode-active .editable-text:focus {
   display: none;
 }
 
+/* Edit-only UI (dock buttons, etc.) - hidden for girlfriend, unlocked for owner */
+.edit-only-ui {
+  display: none !important;
+}
+
+body.owner-mode-active .edit-only-ui {
+  display: inline-flex !important;
+}
+
+body.owner-mode-active span.dock-divider.edit-only-ui {
+  display: block !important;
+}
+
 body.edit-mode-active .edit-only-tool {
   display: block;
 }
