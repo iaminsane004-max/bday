@@ -851,11 +851,11 @@ function syncMusicUI(playing) {
 
   if (playing) {
     if (musicIcon) musicIcon.textContent = "🔊";
-    if (musicText) musicText.textContent = "PLAYING";
+    if (musicText) musicText.textContent = "PAUSE";
     if (musicBtn) musicBtn.classList.add("active-mode");
   } else {
     if (musicIcon) musicIcon.textContent = "🎵";
-    if (musicText) musicText.textContent = "AARADHIKE";
+    if (musicText) musicText.textContent = "PLAY";
     if (musicBtn) musicBtn.classList.remove("active-mode");
   }
 }
