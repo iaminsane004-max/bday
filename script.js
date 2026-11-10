@@ -711,6 +711,14 @@ function onAllCandlesBlown() {
   triggerCelebrationConfetti();
   playCelebrationFanfare();
 
+  // Play Aaradhike on magical moment
+  if (!isMusicPlaying) {
+    const audio = getBgMusic();
+    audio.play().then(() => {
+      showToast("Now Playing: Aaradhike 🎶 (Sooraj Santhosh)");
+    }).catch(() => {});
+  }
+
   const wishCard = document.getElementById("wishRevealCard");
   const relightBtn = document.getElementById("relightBtn");
   const blowBtn = document.getElementById("blowAllBtn");
@@ -810,29 +818,65 @@ function startLofiBirthdayMusic() {
   return totalDuration * 1000;
 }
 
-function toggleMusic() {
+let bgMusicAudio = null;
+
+function getBgMusic() {
+  if (!bgMusicAudio) {
+    bgMusicAudio = new Audio("audio/aaradhike.mp3");
+    bgMusicAudio.loop = true;
+    bgMusicAudio.volume = 0.8;
+
+    bgMusicAudio.addEventListener("play", () => {
+      isMusicPlaying = true;
+      syncMusicUI(true);
+    });
+
+    bgMusicAudio.addEventListener("pause", () => {
+      isMusicPlaying = false;
+      syncMusicUI(false);
+    });
+
+    bgMusicAudio.addEventListener("ended", () => {
+      isMusicPlaying = false;
+      syncMusicUI(false);
+    });
+  }
+  return bgMusicAudio;
+}
+
+function syncMusicUI(playing) {
   const musicBtn = document.getElementById("dockMusicBtn");
   const musicIcon = document.getElementById("musicIcon");
   const musicText = document.getElementById("musicText");
 
-  if (isMusicPlaying) {
-    isMusicPlaying = false;
-    if (melodyInterval) clearInterval(melodyInterval);
-    if (musicIcon) musicIcon.textContent = "🎵";
-    if (musicText) musicText.textContent = "MUSIC";
-    if (musicBtn) musicBtn.classList.remove("active-mode");
-    showToast("Music paused 💤");
-  } else {
-    isMusicPlaying = true;
+  if (playing) {
     if (musicIcon) musicIcon.textContent = "🔊";
     if (musicText) musicText.textContent = "PLAYING";
     if (musicBtn) musicBtn.classList.add("active-mode");
-    showToast("Playing cozy birthday melody 🎶✨");
+  } else {
+    if (musicIcon) musicIcon.textContent = "🎵";
+    if (musicText) musicText.textContent = "AARADHIKE";
+    if (musicBtn) musicBtn.classList.remove("active-mode");
+  }
+}
 
-    const duration = startLofiBirthdayMusic();
-    melodyInterval = setInterval(() => {
-      if (isMusicPlaying) startLofiBirthdayMusic();
-    }, duration + 1000);
+function toggleMusic() {
+  const audio = getBgMusic();
+
+  if (isMusicPlaying) {
+    audio.pause();
+    showToast("Song paused 💤");
+  } else {
+    audio.play().then(() => {
+      showToast("Now Playing: Aaradhike 🎶 (Sooraj Santhosh)");
+    }).catch((err) => {
+      console.warn("Audio play issue, fallback:", err);
+      // Fallback to synth if external file blocked
+      const duration = startLofiBirthdayMusic();
+      isMusicPlaying = true;
+      syncMusicUI(true);
+      showToast("Playing cozy melody 🎶✨");
+    });
   }
 }
 
@@ -1099,6 +1143,9 @@ document.addEventListener("DOMContentLoaded", () => {
       triggerCelebrationConfetti();
       playPopSound();
       showToast("🎉 Celebrating you today and always! 💖");
+      if (!isMusicPlaying) {
+        toggleMusic();
+      }
     });
   }
 
